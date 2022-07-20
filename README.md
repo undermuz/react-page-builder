@@ -1,14 +1,14 @@
-# @undermuz/react-json-form
+# @undermuz/react-page-builder
 
-React library for generate JSON-based form
+React library to make Ui-Blocks with react and JSON, and fill it by generated edit-form
 
 ## Install
 
-`npm i -S git@github.com:undermuz/react-json-form.git`
+`npm i -S git@github.com:undermuz/react-page-builder.git`
 
 ## Update
 
-`npm update @undermuz/react-json-form`
+`npm update @undermuz/react-page-builder`
 
 ## Basic usage
 
@@ -16,6 +16,4 @@ TODO: Fill this block
 
 ## Examples
 
-[Storybook: Grommet](https://undermuz.github.io/react-json-form/?path=/story/example-jsonform--ui-grommet)
-[Storybook: ChakraUi](https://undermuz.github.io/react-json-form/?path=/story/example-jsonform--ui-chakra)
-[Storybook: Rsuite](https://undermuz.github.io/react-json-form/?path=/story/example-jsonform--ui-rsuite)
+[Storybook](https://undermuz.github.io/react-page-builder)

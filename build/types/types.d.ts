@@ -17,7 +17,7 @@ export interface IBlock {
     value: BlockValue;
     scheme: BlockScheme;
     view: FunctionComponent<{
-        id: number;
-        value: any;
+        id?: number;
+        value?: any;
     }>;
 }

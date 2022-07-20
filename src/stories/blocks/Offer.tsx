@@ -48,7 +48,7 @@ const exampleButtonClick = () => {
     alert("click")
 }
 
-const OfferBlock: React.FC<IOfferBlock> = (props) => {
+const OfferBlock: React.FC<Partial<IOfferBlock>> = (props) => {
     const { value = DEF_VALUE, onButtonClick = exampleButtonClick } = props
 
     const {

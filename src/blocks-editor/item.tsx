@@ -96,7 +96,7 @@ const BlockItem: React.FC<IBlockItem> = (props) => {
     const { view: WidgetView, scheme } = block
 
     const handleRemove = useCallback(() => {
-        if (window.confirm("Вы действительно хотите удалить виджет?")) {
+        if (window.confirm("This block will be deleted. Are you sure?")) {
             props.onRemove(id)
         }
     }, [id])
@@ -166,7 +166,7 @@ const BlockItem: React.FC<IBlockItem> = (props) => {
                         primary
                         hoverIndicator
                         icon={<Icons.Edit size="small" />}
-                        label="Редактировать"
+                        label="Edit"
                         onClick={() => setEditing(true)}
                     />
                 </Box>

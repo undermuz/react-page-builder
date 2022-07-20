@@ -29,7 +29,12 @@
         ".vscode",
         "coverage",
         ".npm",
-        ".yarn"
+        ".yarn",
+        "src/stories/**/*",
+        "*.stories.tsx",
+        "*.stories.ts",
+        "*.stories.js",
+        "*.stories.jsx"
     ],
     "include": ["src/**/*"]
 }

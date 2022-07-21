@@ -7,9 +7,11 @@ var rsuite_1 = tslib_1.__importDefault(require("@undermuz/react-json-form/themes
 var grommet_1 = require("grommet");
 var react_1 = require("react");
 var blocks_editor_1 = tslib_1.__importDefault(require("../blocks-editor"));
-var Offer_1 = tslib_1.__importDefault(require("./blocks/Offer"));
+var _1_1 = tslib_1.__importDefault(require("@undermuz/grommet-block-templates/offer/1"));
+var _1_2 = tslib_1.__importDefault(require("@undermuz/grommet-block-templates/features/1"));
 require("rsuite/styles/index.less");
-var library = [Offer_1.default];
+var library = [_1_1.default, _1_2.default];
+// console.log(Feature1)
 var PageBuilderStory = function () {
     var _a = (0, react_1.useState)([]), value = _a[0], setValue = _a[1];
     return ((0, jsx_runtime_1.jsx)(grommet_1.Box, tslib_1.__assign({ direction: "column", fill: true }, { children: (0, jsx_runtime_1.jsx)(blocks_editor_1.default, { value: value, editFormTheme: rsuite_1.default, onChange: function (v) { return setValue(v); }, library: library }) })));

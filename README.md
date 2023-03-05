@@ -39,7 +39,7 @@ React library to make Ui-Blocks with JSON, and fill it by generated edit-form
 
         return
             <BlocksEditor
-                editFormTheme={RsuiteUi}
+                editFormTheme={ChakraUi}
                 library={library}
                 value={value}
                 onChange={(v) => setValue(v)}

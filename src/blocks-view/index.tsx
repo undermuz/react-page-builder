@@ -1,5 +1,5 @@
-import { FC, useEffect, useMemo } from "react"
-import { BlockValue, IBlock, IBlockResultValue } from "../types"
+import { type FC, useEffect, useMemo } from "react"
+import type { BlockValue, IBlock, IBlockResultValue } from "../types"
 
 interface IBlockItem {
     id: number

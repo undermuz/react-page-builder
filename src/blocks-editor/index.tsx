@@ -1,11 +1,12 @@
-import { FC, useCallback, useMemo } from "react"
+import { type FC, useCallback, useMemo } from "react"
 
-import { Box, Menu } from "grommet"
+import { Menu } from "grommet"
 
-import { BlockValue, IBlock, IBlockResultValue } from "../types"
+import type { BlockValue, IBlock, IBlockResultValue } from "../types"
 import BlockItem from "./item"
 import { arrayMoveImmutable } from "array-move"
-import { JsonFormUi } from "@undermuz/react-json-form/build/types/types"
+import { type JsonFormUi } from "@undermuz/react-json-form"
+import { Box, VStack } from "@chakra-ui/react"
 
 interface IBlockMethods {
     onChange: Function
@@ -142,16 +143,8 @@ const BlocksEditor: FC<IBlocksEditorProps> = (props) => {
     }, [onChangeBlock, onRemove, onMoveUp, onMoveDown])
 
     return (
-        <Box direction="column">
-            <Box
-                direction="row"
-                justify="between"
-                pad="small"
-                background={{
-                    color: "dark-1",
-                    opacity: "weak",
-                }}
-            >
+        <VStack>
+            <Box w={"full"}>
                 <Menu
                     label="Add a block"
                     items={library.map((block) => {
@@ -174,7 +167,7 @@ const BlocksEditor: FC<IBlocksEditorProps> = (props) => {
                     />
                 )
             })}
-        </Box>
+        </VStack>
     )
 }
 

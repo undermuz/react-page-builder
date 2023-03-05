@@ -1,16 +1,30 @@
-import React, { MouseEventHandler, useCallback, useState } from "react"
+import { type FC, useCallback, useState } from "react"
 import styled from "styled-components"
 
-import { Box, Button, Layer } from "grommet"
-import * as Icons from "grommet-icons"
+import type { BlockScheme, BlockValue, IBlock } from "../types"
+import type { FunctionOnChange, JsonFormUi } from "@undermuz/react-json-form"
 
-import { BlockScheme, BlockValue, IBlock } from "../types"
 import {
-    FunctionOnChange,
-    JsonFormUi,
-} from "@undermuz/react-json-form/build/types/types"
+    DeleteIcon,
+    ChevronUpIcon,
+    ChevronDownIcon,
+    EditIcon,
+} from "@chakra-ui/icons"
 
 import JsonForm, { UiContext } from "@undermuz/react-json-form"
+import {
+    Box,
+    Button,
+    Flex,
+    HStack,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalHeader,
+    ModalOverlay,
+    Spacer,
+} from "@chakra-ui/react"
 
 interface IWidgetEdit {
     id: number
@@ -18,12 +32,10 @@ interface IWidgetEdit {
     value: BlockValue
     theme: JsonFormUi
     onChange: Function
-    onClose: MouseEventHandler<HTMLAnchorElement> &
-        MouseEventHandler<HTMLButtonElement>
 }
 
-const BlockEditForm: React.FC<IWidgetEdit> = (props) => {
-    const { id, scheme, value, theme, onChange, onClose } = props
+const BlockEditForm: FC<IWidgetEdit> = (props) => {
+    const { id, scheme, value, theme, onChange } = props
 
     const handleChange: FunctionOnChange = useCallback(
         (value: BlockValue) => {
@@ -38,25 +50,12 @@ const BlockEditForm: React.FC<IWidgetEdit> = (props) => {
 
     return (
         <UiContext.Provider value={theme}>
-            <JsonForm
-                {...scheme}
-                value={value}
-                header={
-                    <Button
-                        size="small"
-                        hoverIndicator
-                        label="Close"
-                        icon={<Icons.Close size="small" />}
-                        onClick={onClose}
-                    />
-                }
-                onChange={handleChange}
-            />
+            <JsonForm {...scheme} value={value} onChange={handleChange} />
         </UiContext.Provider>
     )
 }
 
-const ActionBar = styled(Box)`
+const ActionBar = styled(Flex)`
     position: absolute;
     top: 10px;
     left: 0px;
@@ -88,7 +87,7 @@ interface IBlockItem {
     onMoveDown: Function
 }
 
-const BlockItem: React.FC<IBlockItem> = (props) => {
+const BlockItem: FC<IBlockItem> = (props) => {
     const { id, value, block, editFormTheme, onChange } = props
 
     const [isEditing, setEditing] = useState<boolean>(false)
@@ -106,73 +105,51 @@ const BlockItem: React.FC<IBlockItem> = (props) => {
     }
 
     return (
-        <Cont>
-            {isEditing && (
-                <Layer>
-                    <Box width={"large"}>
-                        <BlockEditForm
-                            id={id}
-                            scheme={scheme}
-                            value={value}
-                            theme={editFormTheme}
-                            onChange={onChange}
-                            onClose={() => setEditing(false)}
-                        />
-                    </Box>
-                </Layer>
-            )}
+        <Cont w="full">
+            <Modal isOpen={isEditing} onClose={() => setEditing(false)}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Edit block</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        {isEditing && (
+                            <BlockEditForm
+                                id={id}
+                                scheme={scheme}
+                                value={value}
+                                theme={editFormTheme}
+                                onChange={onChange}
+                            />
+                        )}
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
 
-            <ActionBar
-                direction="row"
-                justify="between"
-                pad="small"
-                background={{
-                    color: "dark-1",
-                    opacity: "weak",
-                }}
-            >
-                <Box direction="row">
-                    <Box
-                        round="full"
-                        overflow="hidden"
-                        background="status-critical"
-                    >
-                        <Button
-                            size="small"
-                            hoverIndicator
-                            icon={<Icons.Trash size="small" />}
-                            onClick={handleRemove}
-                        />
-                    </Box>
-                </Box>
+            <ActionBar p="2" bg="blackAlpha.500">
+                <HStack>
+                    <Button onClick={() => props.onMoveUp(id)}>
+                        <ChevronUpIcon />
+                    </Button>
 
-                <Box direction="row">
-                    <Button
-                        size="small"
-                        hoverIndicator
-                        onClick={() => props.onMoveUp(id)}
-                        icon={<Icons.Up size="small" />}
-                    />
+                    <Button onClick={() => props.onMoveDown(id)}>
+                        <ChevronDownIcon />
+                    </Button>
 
-                    <Button
-                        size="small"
-                        hoverIndicator
-                        onClick={() => props.onMoveDown(id)}
-                        icon={<Icons.Down size="small" />}
-                    />
+                    <Button onClick={() => setEditing(true)}>
+                        <EditIcon />
+                    </Button>
+                </HStack>
 
-                    <Button
-                        size="small"
-                        primary
-                        hoverIndicator
-                        icon={<Icons.Edit size="small" />}
-                        label="Edit"
-                        onClick={() => setEditing(true)}
-                    />
-                </Box>
+                <Spacer />
+
+                <HStack>
+                    <Button colorScheme="red" onClick={handleRemove}>
+                        <DeleteIcon />
+                    </Button>
+                </HStack>
             </ActionBar>
 
-            <Box>
+            <Box w="full">
                 <WidgetView id={id} value={value} />
             </Box>
         </Cont>

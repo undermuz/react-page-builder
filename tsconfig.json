@@ -1,26 +1,27 @@
 {
     "compilerOptions": {
+        "allowJs": true,
         "checkJs": false,
         "resolveJsonModule": true,
         "moduleResolution": "node",
         "esModuleInterop": true,
-        "target": "es5",
+        "target": "ESNext",
         "module": "esnext",
-        "rootDir": "src",
-        "outDir": "./build",
         "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
         "importHelpers": true,
         "jsx": "react-jsx",
-        "declaration": false,
+        "declaration": true,
         "strict": true,
         "lib": ["esnext", "dom.iterable", "dom"],
         "sourceMap": false,
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "noImplicitThis": true,
         "noImplicitReturns": true,
-        "noUnusedLocals": false,
+        "noUnusedLocals": true,
         "noUnusedParameters": false,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "strictPropertyInitialization": false
     },
     "exclude": [
         "dist",
@@ -29,12 +30,7 @@
         ".vscode",
         "coverage",
         ".npm",
-        ".yarn",
-        "src/stories/**/*",
-        "*.stories.tsx",
-        "*.stories.ts",
-        "*.stories.js",
-        "*.stories.jsx"
+        ".yarn"
     ],
     "include": ["src/**/*"]
 }

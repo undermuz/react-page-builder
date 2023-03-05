@@ -1,5 +1,5 @@
-import { IScheme } from "@undermuz/react-json-form/build/types/types"
-import { FunctionComponent } from "react"
+import type { IScheme } from "@undermuz/react-json-form"
+import type { FunctionComponent } from "react"
 
 export type BlockId = string
 export type BlockValueItem = Record<string, any>

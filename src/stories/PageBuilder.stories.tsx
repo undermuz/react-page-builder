@@ -1,8 +1,12 @@
-import type { ComponentStory, ComponentMeta } from "@storybook/react"
-import ChakraUi from "@undermuz/react-json-form/themes/chakra"
-import { Box } from "grommet"
 import { type FC, useState } from "react"
+
+import type { ComponentStory, ComponentMeta } from "@storybook/react"
+import { ChakraProvider } from "@chakra-ui/react"
+import ChakraUi from "@undermuz/react-json-form-theme-chakra"
+import { Box } from "grommet"
+
 import BlocksEditor from "../blocks-editor"
+
 import type { IBlock, IBlockResultValue } from "../types"
 
 import Offer1 from "@undermuz/grommet-block-templates/offer/1"
@@ -10,7 +14,6 @@ import Feature1 from "@undermuz/grommet-block-templates/features/1"
 import Price1 from "@undermuz/grommet-block-templates/prices/1"
 import Price2 from "@undermuz/grommet-block-templates/prices/2"
 import GridText1 from "@undermuz/grommet-block-templates/grid-text/1"
-import { ChakraProvider } from "@chakra-ui/react"
 
 const PageBuilderStory: FC<{ library: IBlock[] }> = ({ library }) => {
     const [value, setValue] = useState<IBlockResultValue[]>([])

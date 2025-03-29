@@ -1,0 +1,97 @@
+{
+  "name": "@undermuz/react-page-builder",
+  "homepage": "http://undermuz.github.io/react-page-builder",
+  "version": "1.0.2",
+  "description": "Make Ui-Blocks with JSON, and fill it by generated edit-form",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./blocks-editor": {
+      "types": "./dist/blocks-editor/index.d.ts",
+      "import": "./dist/blocks-editor/index.mjs",
+      "require": "./dist/blocks-editor/index.js"
+    },
+    "./blocks-view": {
+      "types": "./dist/blocks-view/index.d.ts",
+      "import": "./dist/blocks-view/index.mjs",
+      "require": "./dist/blocks-view/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "blocks-editor/": [
+        "dist/blocks-editor/index.d.ts"
+      ],
+      "blocks-view/": [
+        "dist/blocks-view/index.d.ts"
+      ]
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "jest --passWithNoTests",
+    "lint": "eslint ./src/**/* && tsc --noEmit",
+    "build": "npm run build:tsup",
+    "build:tsup": "tsup",
+    "predeploy": "npm run lint && npm run test && npm run build",
+    "prepublishOnly": "npm run predeploy"
+  },
+  "author": {
+    "name": "undermuz",
+    "email": "undermuz@gmail.com",
+    "url": "https://github.com/undermuz"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/modifiers": "^6.0.1",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@undermuz/react-json-form": "^2.0.6",
+    "array-move": "^4.0.0",
+    "react-icons": "^5.5.0",
+    "react-modal": "^3.16.3",
+    "styled-components": "^5.3.8",
+    "underscore": "^1.13.6"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "@types/react-modal": "^3.16.3",
+    "esbuild-plugin-file-path-extensions": "^2.1.4",
+    "eslint": "^9.23.0",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^16.0.0",
+    "tsup": "^8.4.0",
+    "typescript-eslint": "^8.28.0"
+  },
+  "overrides": {
+    "react-json-view": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "keywords": [
+    "react",
+    "form",
+    "forms",
+    "use-form",
+    "hook"
+  ]
+}

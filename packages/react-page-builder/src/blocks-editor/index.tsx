@@ -6,11 +6,11 @@ import type { BlockValue, IBlock, IBlockResultValue } from "../types"
 import BlockItem from "./item"
 import { useTheme } from "../themes"
 
-interface IBlockMethods {
-    onChange: Function
-    onRemove: Function
-    onMoveUp: Function
-    onMoveDown: Function
+export type IBlockMethods = {
+    onChange: (blockId: number, blockValue: BlockValue) => void
+    onRemove: (id: number) => void
+    onMoveUp: (id: number) => void
+    onMoveDown: (id: number) => void
 }
 
 interface IBlockWrapperProps {
@@ -136,20 +136,6 @@ const BlocksEditor: FC<IBlocksEditorProps> = (props) => {
     return (
         <Ui>
             <Ui.Header library={library} onSelect={handleAdd} />
-            {/* <Box w={"full"}>
-                <Menu>
-                    <MenuButton as={Button}>Add a block</MenuButton>
-                    <MenuList>
-                        {library.map((block) => {
-                            return (
-                                <MenuItem onClick={() => handleAdd(block.id)}>
-                                    {block.title}
-                                </MenuItem>
-                            )
-                        })}
-                    </MenuList>
-                </Menu>
-            </Box> */}
 
             {value.map((item, index) => {
                 return (

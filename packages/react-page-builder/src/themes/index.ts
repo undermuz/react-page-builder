@@ -5,8 +5,9 @@ import {
     type FC,
     type PropsWithChildren,
 } from "react"
+import type { IBlock } from "../types"
+
 import { BasicTheme } from "./basic"
-import { IBlock } from "../types"
 
 export type ReactPageBuilderTheme = FC<PropsWithChildren> & {
     Header: FC<
@@ -28,7 +29,7 @@ export type ReactPageBuilderTheme = FC<PropsWithChildren> & {
 export const ReactPageBuilderThemeContext =
     createContext<ReactPageBuilderTheme | null>(null)
 
-export const useTheme = () => {
+export const useTheme = (): ReactPageBuilderTheme => {
     const context = useContext(ReactPageBuilderThemeContext)
 
     if (!context) {

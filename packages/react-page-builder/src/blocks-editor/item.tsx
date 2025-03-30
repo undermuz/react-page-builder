@@ -4,11 +4,10 @@ import Modal from "react-modal"
 
 import type { BlockScheme, BlockValue, IBlock } from "../types"
 import type { FunctionOnChange } from "@undermuz/react-json-form"
+import type { IBlockMethods } from "."
 
-import { FaAngleUp } from "react-icons/fa"
-import { FaAngleDown } from "react-icons/fa"
+import { FaAngleUp, FaAngleDown, FaTrash } from "react-icons/fa"
 import { FaPencil } from "react-icons/fa6"
-import { FaTrash } from "react-icons/fa"
 
 import JsonForm from "@undermuz/react-json-form"
 import { useTheme } from "../themes"
@@ -17,7 +16,7 @@ interface IWidgetEdit {
     id: number
     scheme: BlockScheme
     value: BlockValue
-    onChange: Function
+    onChange: IBlockMethods["onChange"]
 }
 
 const BlockEditForm: FC<IWidgetEdit> = (props) => {
@@ -37,15 +36,11 @@ const BlockEditForm: FC<IWidgetEdit> = (props) => {
     return <JsonForm {...scheme} value={value} onChange={handleChange} />
 }
 
-interface IBlockItem {
+type IBlockItem = {
     id: number
     value: BlockValue
     block: IBlock
-    onChange: Function
-    onRemove: Function
-    onMoveUp: Function
-    onMoveDown: Function
-}
+} & IBlockMethods
 
 const BlockItem: FC<IBlockItem> = (props) => {
     const { id, value, block, onChange } = props

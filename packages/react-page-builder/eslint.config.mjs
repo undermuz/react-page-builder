@@ -1,6 +1,8 @@
-import { defineConfig } from "eslint/config"
 import globals from "globals"
+
+import { defineConfig } from "eslint/config"
 import js from "@eslint/js"
+
 import tseslint from "typescript-eslint"
 import pluginReact from "eslint-plugin-react"
 
@@ -8,19 +10,40 @@ export default defineConfig([
     { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
     {
         files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
-        languageOptions: { globals: globals.browser },
+        languageOptions: {
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true,
+                },
+            },
+            globals: globals.browser,
+        },
     },
     {
         files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
         plugins: { js },
         extends: ["js/recommended"],
     },
-    tseslint.configs.recommended,
     pluginReact.configs.flat.recommended,
+    pluginReact.configs.flat["jsx-runtime"],
+    tseslint.configs.recommendedTypeChecked,
+    {
+        languageOptions: {
+            parserOptions: {
+                projectService: true,
+                tsconfigRootDir: import.meta.dirname,
+            },
+        },
+    },
+    {
+        files: [`**/*.{ts,tsx}`],
+        rules: {
+            "no-unused-vars": "off",
+        },
+    },
     {
         ignores: ["node_modules/*", "build/*", "dist/*"],
         rules: {
-            "no-unused-vars": "warn",
             "no-undef": "warn",
             "react/prop-types": "off",
             "no-useless-escape": 0,

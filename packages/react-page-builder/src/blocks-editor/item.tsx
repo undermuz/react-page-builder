@@ -1,7 +1,5 @@
 import { type FC, useCallback, useState } from "react"
 
-import Modal from "react-modal"
-
 import type { BlockScheme, BlockValue, IBlock } from "../types"
 import type { FunctionOnChange } from "@undermuz/react-json-form"
 import type { IBlockMethods } from "."
@@ -11,6 +9,7 @@ import { FaPencil } from "react-icons/fa6"
 
 import JsonForm from "@undermuz/react-json-form"
 import { useTheme } from "../themes"
+import { Dialog } from "../dialog"
 
 interface IWidgetEdit {
     id: number
@@ -63,10 +62,11 @@ const BlockItem: FC<IBlockItem> = (props) => {
 
     return (
         <Ui.Item>
-            <Modal
+            <Dialog
                 isOpen={isEditing}
-                onRequestClose={() => setEditing(false)}
-                contentLabel="Edit block"
+                onClose={() => setEditing(false)}
+                closeableOutside
+                aria-label="Edit block"
             >
                 {isEditing && (
                     <BlockEditForm
@@ -76,7 +76,7 @@ const BlockItem: FC<IBlockItem> = (props) => {
                         onChange={onChange}
                     />
                 )}
-            </Modal>
+            </Dialog>
 
             <Ui.Item.Actions>
                 <Ui.Item.Actions.Left>

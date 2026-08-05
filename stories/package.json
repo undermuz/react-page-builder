@@ -12,9 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.5.1",
-    "@undermuz/react-json-form-theme-chakra": "^2.0.4",
-    "dayzed": "^3.2.3",
+    "@undermuz/react-json-form-theme-base": "^2.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

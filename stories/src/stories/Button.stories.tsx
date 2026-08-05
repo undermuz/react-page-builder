@@ -1,41 +1,35 @@
 import { useState, type FC } from "react";
-import { ChakraProvider, Box } from "@chakra-ui/react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 import type { IBlock, IBlockResultValue } from "@react-page-builder/types";
 
 import BlocksEditor from "@react-page-builder/blocks-editor";
-import ChakraUi from "@undermuz/react-json-form-theme-chakra";
 
 import { UiContext } from "@undermuz/react-json-form";
-
-import { chakraBwTheme, ChakraBwThemeFonts } from "../themes/chakra/chakra-bw";
 
 import Offer1 from "../blocks/offer/2/chakra";
 import Feature1 from "../blocks/features/1/chakra";
 import Portfolio1 from "../blocks/portfolio/1/chakra";
 import Stepper1 from "../blocks/stepper/1/chakra";
 import GridText1 from "../blocks/grid-text/1/chakra";
+import { BasicTheme } from "@react-page-builder/themes/basic";
+import "@undermuz/react-json-form-theme-base/styles.css";
 
 const PageBuilderStory: FC<{ library: IBlock[] }> = ({ library }) => {
     const [value, setValue] = useState<IBlockResultValue[]>([]);
 
-    console.log(value)
+    console.log(value);
 
     return (
-        <ChakraProvider theme={chakraBwTheme}>
-            <ChakraBwThemeFonts />
-
-            <UiContext.Provider value={ChakraUi}>
-                <Box w={"100vw"}>
-                    <BlocksEditor
-                        value={value}
-                        onChange={(v) => setValue(v)}
-                        library={library}
-                    />
-                </Box>
-            </UiContext.Provider>
-        </ChakraProvider>
+        <UiContext.Provider value={BasicTheme}>
+            <div style={{ width: "100vw" }}>
+                <BlocksEditor
+                    value={value}
+                    onChange={(v) => setValue(v)}
+                    library={library}
+                />
+            </div>
+        </UiContext.Provider>
     );
 };
 

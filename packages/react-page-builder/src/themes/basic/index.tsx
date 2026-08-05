@@ -65,6 +65,8 @@ const ItemActions: FC<PropsWithChildren> = ({ children }) => {
                 backgroundColor: "rgba(0, 0, 0, 0.5)",
 
                 transition: "opacity 0.2s",
+
+                zIndex: 100000,
             }}
         >
             {children}

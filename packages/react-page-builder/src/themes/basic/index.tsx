@@ -8,6 +8,7 @@ const Container: FC<PropsWithChildren> = ({ children }) => {
                 display: "flex",
                 flexDirection: "column",
                 gap: "10px",
+                width: "100%",
             }}
         >
             {children}

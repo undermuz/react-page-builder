@@ -1,7 +1,7 @@
 {
   "name": "@undermuz/react-page-builder",
   "homepage": "http://undermuz.github.io/react-page-builder",
-  "version": "2.0.2",
+  "version": "2.0.5",
   "description": "Make Ui-Blocks with JSON, and fill it by generated edit-form",
   "exports": {
     ".": {
@@ -57,7 +57,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@undermuz/react-json-form": "^2.0.6",
+    "@undermuz/react-json-form": "^2.0.21",
     "array-move": "^4.0.0",
     "react-icons": "5.4.0",
     "react-modal": "^3.16.3"

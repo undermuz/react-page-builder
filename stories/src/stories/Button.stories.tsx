@@ -20,6 +20,8 @@ import GridText1 from "../blocks/grid-text/1/chakra";
 const PageBuilderStory: FC<{ library: IBlock[] }> = ({ library }) => {
     const [value, setValue] = useState<IBlockResultValue[]>([]);
 
+    console.log(value)
+
     return (
         <ChakraProvider theme={chakraBwTheme}>
             <ChakraBwThemeFonts />

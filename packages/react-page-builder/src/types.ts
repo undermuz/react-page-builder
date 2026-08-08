@@ -2,7 +2,7 @@ import type { IScheme } from "@undermuz/react-json-form"
 import type { FunctionComponent } from "react"
 
 export type BlockId = string
-export type BlockValueItem = Record<string, any>
+export type BlockValueItem = Record<string, unknown>
 export type BlockValue = BlockValueItem | BlockValueItem[]
 export type BlockScheme = IScheme
 
@@ -12,12 +12,12 @@ export interface IBlockResultValue {
     value: BlockValue
 }
 
-export interface IBlock {
+export interface IBlock<T = unknown> {
     id: BlockId
     title: string
     description: string
     image: string
     value: BlockValue
     scheme: BlockScheme
-    view: FunctionComponent<{ id?: number; value?: any }>
+    view: FunctionComponent<{ id?: number; value?: T }>
 }

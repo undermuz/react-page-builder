@@ -1,0 +1,87 @@
+{
+  "name": "@undermuz/react-page-builder",
+  "homepage": "http://undermuz.github.io/react-page-builder",
+  "version": "2.1.0",
+  "description": "Make Ui-Blocks with JSON, and fill it by generated edit-form",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./blocks-editor": {
+      "types": "./dist/blocks-editor/index.d.ts",
+      "import": "./dist/blocks-editor/index.mjs",
+      "require": "./dist/blocks-editor/index.js"
+    },
+    "./blocks-view": {
+      "types": "./dist/blocks-view/index.d.ts",
+      "import": "./dist/blocks-view/index.mjs",
+      "require": "./dist/blocks-view/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "blocks-editor/": [
+        "dist/blocks-editor/index.d.ts"
+      ],
+      "blocks-view/": [
+        "dist/blocks-view/index.d.ts"
+      ]
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"No tests\"",
+    "lint": "eslint ./src/**/* && tsc --noEmit",
+    "build": "npm run build:tsup",
+    "build:tsup": "tsup",
+    "predeploy": "npm run lint && npm run test && npm run build",
+    "prepublishOnly": "npm run predeploy"
+  },
+  "author": {
+    "name": "undermuz",
+    "email": "undermuz@gmail.com",
+    "url": "https://github.com/undermuz"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@undermuz/react-json-form": "^2.3.0",
+    "array-move": "^4.0.0",
+    "lucide-react": "^1.30.0"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^2.1.0",
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.18",
+    "esbuild-plugin-file-path-extensions": "^2.1.4",
+    "eslint": "^10.8.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.9.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.66.0"
+  },
+  "keywords": [
+    "react",
+    "form",
+    "forms",
+    "use-form",
+    "hook"
+  ]
+}

@@ -1,29 +1,26 @@
 import { type FC, useCallback, useMemo } from "react"
-
-import { Menu } from "grommet"
+import { arrayMoveImmutable } from "array-move"
 
 import type { BlockValue, IBlock, IBlockResultValue } from "../types"
-import BlockItem from "./item"
-import { arrayMoveImmutable } from "array-move"
-import { type JsonFormUi } from "@undermuz/react-json-form"
-import { Box, VStack } from "@chakra-ui/react"
 
-interface IBlockMethods {
-    onChange: Function
-    onRemove: Function
-    onMoveUp: Function
-    onMoveDown: Function
+import BlockItem from "./item"
+import { useTheme } from "../themes"
+
+export type IBlockMethods = {
+    onChange: (blockId: number, blockValue: BlockValue) => void
+    onRemove: (id: number) => void
+    onMoveUp: (id: number) => void
+    onMoveDown: (id: number) => void
 }
 
 interface IBlockWrapperProps {
     item: IBlockResultValue
     methods: IBlockMethods
     library: IBlock[]
-    editFormTheme: JsonFormUi
 }
 
 const BlockWrapper: FC<IBlockWrapperProps> = (props) => {
-    const { item, library, methods, editFormTheme } = props
+    const { item, library, methods } = props
 
     const block = useMemo(
         () => library.find((_b) => _b.id === item.blockId),
@@ -34,25 +31,17 @@ const BlockWrapper: FC<IBlockWrapperProps> = (props) => {
         return <>(Block #{item.blockId} not found)</>
     }
 
-    return (
-        <BlockItem
-            {...item}
-            {...methods}
-            block={block}
-            editFormTheme={editFormTheme}
-        />
-    )
+    return <BlockItem {...item} {...methods} block={block} />
 }
 
 interface IBlocksEditorProps {
     value: IBlockResultValue[]
     onChange: (v: IBlockResultValue[]) => void
     library: IBlock[]
-    editFormTheme: JsonFormUi
 }
 
 const BlocksEditor: FC<IBlocksEditorProps> = (props) => {
-    const { library, value, editFormTheme, onChange } = props
+    const { library, value, onChange } = props
 
     const getUid = useCallback(() => {
         let uid = Math.floor(Math.random() * 700000)
@@ -142,19 +131,11 @@ const BlocksEditor: FC<IBlocksEditorProps> = (props) => {
         }
     }, [onChangeBlock, onRemove, onMoveUp, onMoveDown])
 
+    const Ui = useTheme()
+
     return (
-        <VStack>
-            <Box w={"full"}>
-                <Menu
-                    label="Add a block"
-                    items={library.map((block) => {
-                        return {
-                            label: block.title,
-                            onClick: () => handleAdd(block.id),
-                        }
-                    })}
-                />
-            </Box>
+        <Ui>
+            <Ui.Header library={library} onSelect={handleAdd} />
 
             {value.map((item, index) => {
                 return (
@@ -163,11 +144,10 @@ const BlocksEditor: FC<IBlocksEditorProps> = (props) => {
                         item={item}
                         library={library}
                         methods={blockMethods}
-                        editFormTheme={editFormTheme}
                     />
                 )
             })}
-        </VStack>
+        </Ui>
     )
 }
 

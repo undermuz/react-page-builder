@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:pages": "tsc -b && vite build --base=/react-page-builder/",
     "lint": "eslint .",
     "preview": "vite preview"
   },

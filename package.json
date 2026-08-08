@@ -9,6 +9,7 @@
   "scripts": {
     "dev:home-page": "nx dev @undermuz/home-page",
     "build": "nx run-many -t build",
+    "build:home-page:pages": "npm run build:pages --workspace=@undermuz/home-page",
     "lint": "nx run-many -t lint",
     "test": "nx run-many -t test"
   },

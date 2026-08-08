@@ -7,6 +7,8 @@ import tailwindcss from "@tailwindcss/vite"
 const root = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
+    // GitHub Pages project site: https://undermuz.github.io/react-page-builder/
+    base: process.env.BASE_PATH || "/",
     plugins: [react(), tailwindcss()],
     resolve: {
         alias: {

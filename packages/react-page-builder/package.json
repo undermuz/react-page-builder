@@ -1,7 +1,7 @@
 {
   "name": "@undermuz/react-page-builder",
   "homepage": "http://undermuz.github.io/react-page-builder",
-  "version": "2.0.8",
+  "version": "2.1.0",
   "description": "Make Ui-Blocks with JSON, and fill it by generated edit-form",
   "exports": {
     ".": {
@@ -57,24 +57,25 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@undermuz/react-json-form": "^2.0.21",
+    "@undermuz/react-json-form": "^2.3.0",
     "array-move": "^4.0.0",
-    "react-icons": "5.4.0"
+    "lucide-react": "^1.30.0"
   },
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@eslint/js": "^9.23.0",
+    "@eslint/compat": "^2.1.0",
+    "@eslint/js": "^10.0.1",
     "@types/react": "^19.2.18",
     "esbuild-plugin-file-path-extensions": "^2.1.4",
-    "eslint": "^9.23.0",
-    "eslint-plugin-react": "^7.37.4",
-    "globals": "^16.0.0",
+    "eslint": "^10.8.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.9.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.28.0"
+    "typescript-eslint": "^8.66.0"
   },
   "keywords": [
     "react",

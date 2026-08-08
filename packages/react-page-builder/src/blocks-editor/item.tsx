@@ -4,8 +4,7 @@ import type { BlockScheme, BlockValue, IBlock } from "../types"
 import type { FunctionOnChange } from "@undermuz/react-json-form"
 import type { IBlockMethods } from "."
 
-import { FaAngleUp, FaAngleDown, FaTrash } from "react-icons/fa"
-import { FaPencil } from "react-icons/fa6"
+import { ChevronUp, ChevronDown, Pencil, Trash2 } from "lucide-react"
 
 import JsonForm from "@undermuz/react-json-form"
 import { useTheme } from "../themes"
@@ -81,15 +80,15 @@ const BlockItem: FC<IBlockItem> = (props) => {
             <Ui.Item.Actions>
                 <Ui.Item.Actions.Left>
                     <Ui.Button onClick={() => props.onMoveUp(id)}>
-                        <FaAngleUp />
+                        <ChevronUp size={16} />
                     </Ui.Button>
 
                     <Ui.Button onClick={() => props.onMoveDown(id)}>
-                        <FaAngleDown />
+                        <ChevronDown size={16} />
                     </Ui.Button>
 
                     <Ui.Button onClick={() => setEditing(true)}>
-                        <FaPencil />
+                        <Pencil size={16} />
                     </Ui.Button>
                 </Ui.Item.Actions.Left>
 
@@ -98,7 +97,7 @@ const BlockItem: FC<IBlockItem> = (props) => {
                         data-reactpagebuilder="btn-remove"
                         onClick={handleRemove}
                     >
-                        <FaTrash />
+                        <Trash2 size={16} />
                     </Ui.Button>
                 </Ui.Item.Actions.Right>
             </Ui.Item.Actions>

@@ -1,0 +1,14 @@
+node_modules
+dist
+build
+coverage
+.nx/cache
+.nx/workspace-data
+.nx/installation
+storybook-static
+*.log
+.DS_Store
+
+
+
+.nx/migrate-runs

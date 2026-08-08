@@ -1,0 +1,26 @@
+{
+  "name": "@undermuz/react-page-builder-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:home-page": "nx dev @undermuz/home-page",
+    "build": "nx run-many -t build",
+    "lint": "nx run-many -t lint",
+    "test": "nx run-many -t test"
+  },
+  "devDependencies": {
+    "@nx/eslint": "23.1.1",
+    "@nx/vite": "23.1.1",
+    "eslint": "^10.8.1",
+    "nx": "23.1.1"
+  },
+  "overrides": {
+    "eslint-plugin-react": {
+      "eslint": "$eslint"
+    }
+  }
+}

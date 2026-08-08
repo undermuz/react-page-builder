@@ -1,0 +1,146 @@
+import type { FC } from "react"
+import { EnumSchemeItemType } from "@undermuz/react-json-form"
+import type { IScheme } from "@undermuz/react-json-form"
+import type { IBlock } from "@undermuz/react-page-builder"
+
+export type EcosystemLink = {
+    name: string
+    description: string
+    href: string
+}
+
+export type EcosystemValue = {
+    title: string
+    body: string
+    links: EcosystemLink[]
+}
+
+const DEF_VALUE: EcosystemValue = {
+    title: "Ecosystem",
+    body: "react-page-builder sits on top of the Undermuz form stack. Explore the packages and the source.",
+    links: [
+        {
+            name: "GitHub · react-page-builder",
+            description: "Source, issues, and releases for this library.",
+            href: "https://github.com/undermuz/react-page-builder",
+        },
+        {
+            name: "@undermuz/use-form",
+            description: "React form state hook used under the hood.",
+            href: "https://www.npmjs.com/package/@undermuz/use-form",
+        },
+        {
+            name: "@undermuz/react-json-form",
+            description: "JSON schemes → generated edit forms for each block.",
+            href: "https://www.npmjs.com/package/@undermuz/react-json-form",
+        },
+        {
+            name: "npm · react-page-builder",
+            description: "Install from the public registry.",
+            href: "https://www.npmjs.com/package/@undermuz/react-page-builder",
+        },
+    ],
+}
+
+const scheme: IScheme = {
+    id: "ecosystem",
+    title: "Ecosystem",
+    multiple: false,
+    scheme: [
+        {
+            name: "title",
+            title: "Title",
+            type: EnumSchemeItemType.Text,
+            def_value: DEF_VALUE.title,
+        },
+        {
+            name: "body",
+            title: "Body",
+            type: EnumSchemeItemType.TextBlock,
+            def_value: DEF_VALUE.body,
+        },
+        {
+            name: "links",
+            title: "Links",
+            type: EnumSchemeItemType.Widget,
+            multiple: true,
+            scheme: [
+                {
+                    name: "name",
+                    title: "Name",
+                    type: EnumSchemeItemType.Text,
+                    def_value: "",
+                },
+                {
+                    name: "description",
+                    title: "Description",
+                    type: EnumSchemeItemType.TextBlock,
+                    def_value: "",
+                },
+                {
+                    name: "href",
+                    title: "URL",
+                    type: EnumSchemeItemType.Text,
+                    def_value: "",
+                },
+            ],
+        },
+    ],
+}
+
+const EcosystemView: FC<{ id?: number; value?: EcosystemValue }> = ({
+    value,
+}) => {
+    const v = {
+        ...DEF_VALUE,
+        ...value,
+        links: value?.links?.length ? value.links : DEF_VALUE.links,
+    }
+
+    return (
+        <section className="w-full px-4 py-12 pb-20 sm:px-6 sm:py-16 sm:pb-24">
+            <div className="mx-auto max-w-6xl">
+                <h2 className="font-sans text-2xl font-semibold tracking-tight sm:text-3xl">
+                    {v.title}
+                </h2>
+                <p className="mt-3 max-w-3xl font-mono text-sm leading-relaxed text-rpb-muted">
+                    {v.body}
+                </p>
+                <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+                    {v.links.map((link, index) => (
+                        <li key={`${link.name}-${index}`}>
+                            <a
+                                href={link.href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="glass glass-hover block h-full rounded-2xl p-5 no-underline"
+                            >
+                                <p className="font-semibold text-rpb-text">
+                                    {link.name}
+                                </p>
+                                <p className="mt-2 font-mono text-sm leading-relaxed text-rpb-muted">
+                                    {link.description}
+                                </p>
+                                <p className="mt-4 font-mono text-xs text-rpb-secondary">
+                                    Open →
+                                </p>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </section>
+    )
+}
+
+const EcosystemBlock: IBlock<EcosystemValue> = {
+    id: "ecosystem",
+    title: "Ecosystem",
+    description: "Related libraries and GitHub links",
+    image: "",
+    value: DEF_VALUE,
+    scheme,
+    view: EcosystemView,
+}
+
+export default EcosystemBlock

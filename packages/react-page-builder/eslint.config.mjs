@@ -1,6 +1,7 @@
 import globals from "globals"
 
 import { defineConfig } from "eslint/config"
+import { fixupConfigRules } from "@eslint/compat"
 import js from "@eslint/js"
 
 import tseslint from "typescript-eslint"
@@ -24,8 +25,15 @@ export default defineConfig([
         plugins: { js },
         extends: ["js/recommended"],
     },
-    pluginReact.configs.flat.recommended,
-    pluginReact.configs.flat["jsx-runtime"],
+    ...fixupConfigRules(pluginReact.configs.flat.recommended),
+    ...fixupConfigRules(pluginReact.configs.flat["jsx-runtime"]),
+    {
+        settings: {
+            react: {
+                version: "detect",
+            },
+        },
+    },
     tseslint.configs.recommendedTypeChecked,
     {
         languageOptions: {

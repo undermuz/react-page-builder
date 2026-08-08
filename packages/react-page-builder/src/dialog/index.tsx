@@ -55,6 +55,7 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
         } = props
 
         const _ref = useRef<HTMLDialogElement>(null)
+        const mouseDownTarget = useRef<EventTarget | null>(null)
 
         const ref = (_forwardRef as RefObject<HTMLDialogElement>) || _ref
 
@@ -64,25 +65,29 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
             onClose()
         }, [onClose, ref])
 
+        // Close only when both mousedown and click hit the backdrop.
+        // Prevents closing after native pickers (file/color) return focus
+        // with a click that lands outside the dialog content.
+        const onDialogMouseDown = useCallback(
+            (e: MouseEvent<HTMLDialogElement>) => {
+                mouseDownTarget.current = e.target
+            },
+            [],
+        )
+
         const onDialogClick = useCallback(
             (e: MouseEvent<HTMLDialogElement>) => {
                 if (!closeableOutside) return
 
-                const node = e.currentTarget
+                const isBackdropClick =
+                    mouseDownTarget.current === e.currentTarget &&
+                    e.target === e.currentTarget
 
-                const r = node.getBoundingClientRect()
+                mouseDownTarget.current = null
 
-                const clickedInDialog =
-                    r.top <= e.clientY &&
-                    e.clientY <= r.bottom &&
-                    r.left <= e.clientX &&
-                    e.clientX <= r.right
-
-                if (clickedInDialog) {
-                    return
+                if (isBackdropClick) {
+                    closeModal()
                 }
-
-                closeModal()
             },
             [closeableOutside, closeModal],
         )
@@ -116,6 +121,7 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
                     data-reactpagebuilder="dialog"
                     ref={ref}
                     onClose={onClose}
+                    onMouseDown={onDialogMouseDown}
                     onClick={onDialogClick}
                     style={{ ...dialogStyles, ...style }}
                 >

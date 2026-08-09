@@ -83,6 +83,12 @@
     .animate-rise-delay {
         animation: rpb-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
     }
+
+    .hero-tip {
+        animation:
+            rpb-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both,
+            rpb-float 3.2s ease-in-out 900ms infinite;
+    }
 }
 
 @keyframes rpb-rise {
@@ -93,6 +99,22 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes rpb-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-tip {
+        animation: rpb-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
     }
 }
 
@@ -125,8 +147,16 @@
     min-height: 1.35em;
 }
 
-/* Dark-friendly BlocksEditor chrome on the landing page */
+/* Dark-friendly BlocksEditor chrome on the landing page.
+   BasicTheme sets inline color — need !important to keep block copy readable. */
 [data-rpb-landing] [data-reactpagebuilder="theme"] {
+    color: var(--color-rpb-text) !important;
+}
+
+[data-rpb-landing] [data-reactpagebuilder="block-item"] h1,
+[data-rpb-landing] [data-reactpagebuilder="block-item"] h2,
+[data-rpb-landing] [data-reactpagebuilder="block-item"] h3,
+[data-rpb-landing] [data-reactpagebuilder="block-item"] h4 {
     color: var(--color-rpb-text);
 }
 

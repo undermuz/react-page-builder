@@ -18,8 +18,12 @@ import {
     savePageValue,
 } from "./lib/storage"
 
+function isPageDirty(value: IBlockResultValue[]): boolean {
+    return JSON.stringify(value) !== JSON.stringify(DEFAULT_PAGE)
+}
+
 function App() {
-    const [mode, setMode] = useState<AppMode>("view")
+    const [mode, setMode] = useState<AppMode>("edit")
     const [value, setValue] = useState<IBlockResultValue[]>(() =>
         loadPageValue(DEFAULT_PAGE)
     )
@@ -35,7 +39,12 @@ function App() {
 
     return (
         <div data-rpb-landing className="flex min-h-screen w-full flex-col">
-            <AppChrome mode={mode} onModeChange={setMode} onReset={onReset} />
+            <AppChrome
+                mode={mode}
+                onModeChange={setMode}
+                onReset={onReset}
+                isDirty={isPageDirty(value)}
+            />
 
             <main className="flex-1">
                 {mode === "edit" ? (

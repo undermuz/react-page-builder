@@ -1,6 +1,7 @@
 import type { IBlockResultValue } from "@undermuz/react-page-builder"
 
-export const PAGE_STORAGE_KEY = "rpb-home-page"
+/** Bump when DEFAULT_PAGE gains/removes seed blocks so sessions pick up the new layout. */
+export const PAGE_STORAGE_KEY = "rpb-home-page-v11"
 
 export function loadPageValue(
     fallback: IBlockResultValue[]

@@ -3,7 +3,10 @@ import { EnumSchemeItemType } from "@undermuz/react-json-form"
 import type { IScheme } from "@undermuz/react-json-form"
 import type { IBlock } from "@undermuz/react-page-builder"
 
+import { getJsonFormHref, getUseFormHref } from "../../lib/siteUrls"
+
 export type EcosystemLink = {
+    id: number
     name: string
     description: string
     href: string
@@ -20,24 +23,22 @@ const DEF_VALUE: EcosystemValue = {
     body: "react-page-builder sits on top of the Undermuz form stack. Explore the packages and the source.",
     links: [
         {
+            id: 1,
             name: "GitHub · react-page-builder",
             description: "Source, issues, and releases for this library.",
             href: "https://github.com/undermuz/react-page-builder",
         },
         {
+            id: 2,
             name: "@undermuz/use-form",
             description: "React form state hook used under the hood.",
-            href: "https://www.npmjs.com/package/@undermuz/use-form",
+            href: getUseFormHref(),
         },
         {
+            id: 3,
             name: "@undermuz/react-json-form",
             description: "JSON schemes → generated edit forms for each block.",
-            href: "https://www.npmjs.com/package/@undermuz/react-json-form",
-        },
-        {
-            name: "npm · react-page-builder",
-            description: "Install from the public registry.",
-            href: "https://www.npmjs.com/package/@undermuz/react-page-builder",
+            href: getJsonFormHref(),
         },
     ],
 }
@@ -111,8 +112,16 @@ const EcosystemView: FC<{ id?: number; value?: EcosystemValue }> = ({
                         <li key={`${link.name}-${index}`}>
                             <a
                                 href={link.href}
-                                target="_blank"
-                                rel="noreferrer"
+                                target={
+                                    link.href.startsWith("http")
+                                        ? "_blank"
+                                        : undefined
+                                }
+                                rel={
+                                    link.href.startsWith("http")
+                                        ? "noreferrer"
+                                        : undefined
+                                }
                                 className="glass glass-hover block h-full rounded-2xl p-5 no-underline"
                             >
                                 <p className="font-semibold text-rpb-text">

@@ -12,6 +12,9 @@ export type HeroValue = {
     primaryHref: string
     secondaryLabel: string
     secondaryHref: string
+    tipEyebrow: string
+    tipTitle: string
+    tipBody: string
 }
 
 const DEF_VALUE: HeroValue = {
@@ -24,6 +27,10 @@ const DEF_VALUE: HeroValue = {
     primaryHref: "#install",
     secondaryLabel: "View on GitHub",
     secondaryHref: "https://github.com/undermuz/react-page-builder",
+    tipEyebrow: "Try it now",
+    tipTitle: "Hover this block → click Edit",
+    tipBody:
+        "Move your mouse over any section. The toolbar appears — hit the pencil and rewrite the page live.",
 }
 
 const scheme: IScheme = {
@@ -79,8 +86,84 @@ const scheme: IScheme = {
             type: EnumSchemeItemType.Text,
             def_value: DEF_VALUE.secondaryHref,
         },
+        {
+            name: "tipEyebrow",
+            title: "Tip eyebrow",
+            type: EnumSchemeItemType.Text,
+            def_value: DEF_VALUE.tipEyebrow,
+        },
+        {
+            name: "tipTitle",
+            title: "Tip title",
+            type: EnumSchemeItemType.Text,
+            def_value: DEF_VALUE.tipTitle,
+        },
+        {
+            name: "tipBody",
+            title: "Tip body",
+            type: EnumSchemeItemType.TextBlock,
+            def_value: DEF_VALUE.tipBody,
+        },
     ],
 }
+
+const HeroTip: FC<{
+    eyebrow: string
+    title: string
+    body: string
+}> = ({ eyebrow, title, body }) => (
+    <aside
+        className="hero-tip relative w-full max-w-sm shrink-0 lg:mt-10"
+        aria-label="How to edit this page"
+    >
+        <div className="pointer-events-none absolute -top-3 right-6 hidden text-rpb-primary lg:block">
+            <svg width="28" height="36" viewBox="0 0 28 36" fill="none" aria-hidden>
+                <path
+                    d="M14 2v26M14 28l-7-7M14 28l7-7"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+            </svg>
+        </div>
+
+        <div className="glass relative overflow-hidden rounded-2xl border-rpb-primary/35 p-5 shadow-[0_0_40px_rgb(95_160_78_/0.18)] sm:p-6">
+            <div className="absolute -right-8 -top-8 size-28 rounded-full bg-rpb-primary/15 blur-2xl" />
+            <div className="relative flex items-start gap-3">
+                <span
+                    className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl border border-rpb-primary/40 bg-rpb-primary/15 text-rpb-secondary"
+                    aria-hidden
+                >
+                    <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    >
+                        <path d="M12 20h9" />
+                        <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                    </svg>
+                </span>
+                <div>
+                    <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-rpb-secondary">
+                        {eyebrow}
+                    </p>
+                    <p className="mt-1.5 font-sans text-lg font-semibold leading-snug text-rpb-text">
+                        {title}
+                    </p>
+                    <p className="mt-2 font-mono text-sm leading-relaxed text-rpb-muted">
+                        {body}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </aside>
+)
 
 const HeroView: FC<{ id?: number; value?: HeroValue }> = ({ value }) => {
     const v = { ...DEF_VALUE, ...value }
@@ -88,8 +171,8 @@ const HeroView: FC<{ id?: number; value?: HeroValue }> = ({ value }) => {
     return (
         <section className="relative w-full overflow-hidden px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgb(95_160_78_/0.16),transparent_55%)]" />
-            <div className="relative mx-auto flex max-w-6xl flex-col gap-6">
-                <div className="animate-rise max-w-4xl">
+            <div className="relative mx-auto flex max-w-6xl flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
+                <div className="animate-rise min-w-0 max-w-3xl flex-1">
                     <p className="mb-4 font-mono text-xs font-medium uppercase tracking-[0.18em] text-rpb-secondary">
                         {v.eyebrow}
                     </p>
@@ -126,6 +209,14 @@ const HeroView: FC<{ id?: number; value?: HeroValue }> = ({ value }) => {
                             {v.secondaryLabel}
                         </a>
                     </div>
+                </div>
+
+                <div className="animate-rise-delay lg:pt-2">
+                    <HeroTip
+                        eyebrow={v.tipEyebrow}
+                        title={v.tipTitle}
+                        body={v.tipBody}
+                    />
                 </div>
             </div>
         </section>

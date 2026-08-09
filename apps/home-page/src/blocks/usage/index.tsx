@@ -7,37 +7,54 @@ import CodePanel from "../../components/CodePanel"
 export type UsageValue = {
     title: string
     body: string
-    editorTitle: string
     editorCode: string
-    viewTitle: string
-    viewCode: string
 }
 
 const DEF_VALUE: UsageValue = {
-    title: "How to use",
-    body: "Build one library array of IBlock definitions. Pass it to BlocksEditor while editing and to BlocksView when rendering the saved page.",
-    editorTitle: "Editor",
-    editorCode: `import { BlocksEditor } from "@undermuz/react-page-builder"
+    title: "Build edit forms",
+    body: "Wrap BlocksEditor with a JsonForm theme. Keep page state as IBlockResultValue[] — onChange gives you the full tree to save anywhere.",
+    editorCode: `import { useState } from "react"
+import {
+  BlocksEditor,
+  type IBlock,
+  type IBlockResultValue,
+} from "@undermuz/react-page-builder"
 import { UiContext } from "@undermuz/react-json-form"
 import BaseTheme from "@undermuz/react-json-form-theme-base"
 import "@undermuz/react-json-form-theme-base/styles.css"
+import Hero from "./blocks/hero"
 
-<UiContext.Provider value={BaseTheme}>
-  <BlocksEditor
-    library={library}
-    value={value}
-    onChange={setValue}
-  />
-</UiContext.Provider>`,
-    viewTitle: "View",
-    viewCode: `import { BlocksView } from "@undermuz/react-page-builder"
+const library: IBlock[] = [Hero]
 
-<BlocksView library={library} value={value} />`,
+function PageEditor() {
+  const [value, setValue] = useState<IBlockResultValue[]>([
+    {
+      id: 1,
+      blockId: "hero",
+      value: {
+        headline: "Hello",
+        body: "Welcome",
+      },
+    },
+  ])
+
+  return (
+    <UiContext.Provider value={BaseTheme}>
+      <BlocksEditor
+        library={library}
+        value={value}
+        onChange={setValue}
+      />
+    </UiContext.Provider>
+  )
+}
+
+export default PageEditor`,
 }
 
 const scheme: IScheme = {
     id: "usage",
-    title: "Usage",
+    title: "Build edit forms",
     multiple: false,
     scheme: [
         {
@@ -53,28 +70,10 @@ const scheme: IScheme = {
             def_value: DEF_VALUE.body,
         },
         {
-            name: "editorTitle",
-            title: "Editor title",
-            type: EnumSchemeItemType.Text,
-            def_value: DEF_VALUE.editorTitle,
-        },
-        {
             name: "editorCode",
             title: "Editor code",
             type: EnumSchemeItemType.TextBlock,
             def_value: DEF_VALUE.editorCode,
-        },
-        {
-            name: "viewTitle",
-            title: "View title",
-            type: EnumSchemeItemType.Text,
-            def_value: DEF_VALUE.viewTitle,
-        },
-        {
-            name: "viewCode",
-            title: "View code",
-            type: EnumSchemeItemType.TextBlock,
-            def_value: DEF_VALUE.viewCode,
         },
     ],
 }
@@ -85,28 +84,17 @@ const UsageView: FC<{ id?: number; value?: UsageValue }> = ({ value }) => {
     return (
         <section className="w-full px-4 py-12 sm:px-6 sm:py-16">
             <div className="mx-auto max-w-6xl">
-                <h2 className="font-sans text-2xl font-semibold tracking-tight sm:text-3xl">
+                <h2 className="font-sans text-2xl font-semibold tracking-tight text-rpb-text sm:text-3xl">
                     {v.title}
                 </h2>
                 <p className="mt-3 max-w-3xl font-mono text-sm leading-relaxed text-rpb-muted">
                     {v.body}
                 </p>
-                <div className="mt-8 grid gap-6 lg:grid-cols-2">
-                    <div>
-                        <p className="mb-3 font-mono text-xs uppercase tracking-wider text-rpb-secondary">
-                            {v.editorTitle}
-                        </p>
-                        <CodePanel
-                            filename="PageEditor.tsx"
-                            code={v.editorCode}
-                        />
-                    </div>
-                    <div>
-                        <p className="mb-3 font-mono text-xs uppercase tracking-wider text-rpb-secondary">
-                            {v.viewTitle}
-                        </p>
-                        <CodePanel filename="PageView.tsx" code={v.viewCode} />
-                    </div>
+                <div className="mt-8">
+                    <p className="mb-3 font-mono text-xs uppercase tracking-wider text-rpb-secondary">
+                        BlocksEditor
+                    </p>
+                    <CodePanel filename="PageEditor.tsx" code={v.editorCode} />
                 </div>
             </div>
         </section>
@@ -115,8 +103,8 @@ const UsageView: FC<{ id?: number; value?: UsageValue }> = ({ value }) => {
 
 const UsageBlock: IBlock<UsageValue> = {
     id: "usage",
-    title: "Usage",
-    description: "Editor and view usage examples",
+    title: "Build edit forms",
+    description: "BlocksEditor with state and JsonForm theme",
     image: "",
     value: DEF_VALUE,
     scheme,

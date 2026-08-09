@@ -1,21 +1,28 @@
 import type { FC } from "react"
 import ModeToggle, { type AppMode } from "./ModeToggle"
+import {
+    getJsonFormHref,
+    getUseFormHref,
+} from "../lib/siteUrls"
 
 const GITHUB = "https://github.com/undermuz/react-page-builder"
-const NPM = "https://www.npmjs.com/package/@undermuz/react-page-builder"
-const USE_FORM = "https://www.npmjs.com/package/@undermuz/use-form"
-const JSON_FORM = "https://www.npmjs.com/package/@undermuz/react-json-form"
 
 type AppChromeProps = {
     mode: AppMode
     onModeChange: (mode: AppMode) => void
     onReset: () => void
+    isDirty: boolean
 }
 
 const linkClass =
     "font-mono text-xs text-rpb-muted transition-colors hover:text-rpb-text"
 
-const AppChrome: FC<AppChromeProps> = ({ mode, onModeChange, onReset }) => {
+const AppChrome: FC<AppChromeProps> = ({
+    mode,
+    onModeChange,
+    onReset,
+    isDirty,
+}) => {
     return (
         <header className="sticky top-0 z-50 border-b border-rpb-border bg-rpb-surface/75 backdrop-blur-xl">
             <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
@@ -35,12 +42,23 @@ const AppChrome: FC<AppChromeProps> = ({ mode, onModeChange, onReset }) => {
                             react-page-builder
                         </p>
                         <p className="truncate font-mono text-[10px] text-rpb-muted">
-                            live demo · same library
+                            this page is built with the library
                         </p>
                     </div>
                 </div>
 
-                <ModeToggle mode={mode} onChange={onModeChange} />
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                    <ModeToggle mode={mode} onChange={onModeChange} />
+                    {isDirty ? (
+                        <button
+                            type="button"
+                            onClick={onReset}
+                            className="rounded-full border border-amber-400/60 bg-amber-400 px-3 py-1.5 font-mono text-xs font-semibold text-rpb-surface transition hover:bg-amber-300"
+                        >
+                            Reset demo
+                        </button>
+                    ) : null}
+                </div>
 
                 <nav
                     className="flex flex-wrap items-center gap-x-4 gap-y-2"
@@ -54,37 +72,12 @@ const AppChrome: FC<AppChromeProps> = ({ mode, onModeChange, onReset }) => {
                     >
                         GitHub
                     </a>
-                    <a
-                        className={linkClass}
-                        href={NPM}
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        npm
-                    </a>
-                    <a
-                        className={linkClass}
-                        href={USE_FORM}
-                        target="_blank"
-                        rel="noreferrer"
-                    >
+                    <a className={linkClass} href={getUseFormHref()}>
                         use-form
                     </a>
-                    <a
-                        className={linkClass}
-                        href={JSON_FORM}
-                        target="_blank"
-                        rel="noreferrer"
-                    >
+                    <a className={linkClass} href={getJsonFormHref()}>
                         react-json-form
                     </a>
-                    <button
-                        type="button"
-                        onClick={onReset}
-                        className="rounded-full border border-rpb-border px-3 py-1 font-mono text-xs text-rpb-muted transition hover:border-rpb-secondary/50 hover:text-rpb-text"
-                    >
-                        Reset demo
-                    </button>
                 </nav>
             </div>
             {mode === "edit" && (

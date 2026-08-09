@@ -6,6 +6,7 @@ import InstallBlock from "./install"
 import UsageBlock from "./usage"
 import CreateBlockBlock from "./create-block"
 import CodeWindowBlock from "./code-window"
+import NestedWidgetsBlock from "./nested-widgets"
 import EcosystemBlock from "./ecosystem"
 
 export const library: IBlock[] = [
@@ -13,8 +14,9 @@ export const library: IBlock[] = [
     HighlightsBlock,
     ModesBlock,
     InstallBlock,
-    UsageBlock,
     CreateBlockBlock,
+    UsageBlock,
+    NestedWidgetsBlock,
     CodeWindowBlock,
     EcosystemBlock,
 ]

@@ -37,6 +37,7 @@ npm run build              # build all projects
 npm run lint               # lint all
 npm run test               # test all
 npm run dev:home-page      # Vite dev for apps/home-page
+npm run deploy:home-page   # build + publish apps/home-page to gh-pages
 ```
 
 Library package:

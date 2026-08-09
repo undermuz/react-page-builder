@@ -4,6 +4,7 @@ import type { IScheme } from "@undermuz/react-json-form"
 import type { IBlock } from "@undermuz/react-page-builder"
 
 export type HighlightItem = {
+    id: number
     title: string
     description: string
 }
@@ -23,25 +24,30 @@ const DEF_VALUE: HighlightsValue = {
     subtitle: "Everything on this page is a block you can edit above.",
     items: [
         {
+            id: 1,
             title: "JSON page state",
             description:
                 "Save IBlockResultValue[] anywhere — API, CMS, or sessionStorage.",
         },
         {
+            id: 2,
             title: "Scheme → edit form",
             description:
                 "react-json-form builds the dialog from your IScheme automatically.",
         },
         {
+            id: 3,
             title: "Same library twice",
             description:
                 "BlocksEditor for authors, BlocksView for the public site.",
         },
     ],
-    cardOneTitle: "Ship same day",
-    cardOneBody: "Add a block definition and drop it into the library array.",
-    cardTwoTitle: "Stable blockId",
-    cardTwoBody: "Keep IBlock.id stable — it is persisted on every page instance.",
+    cardOneTitle: "Your UI, your code",
+    cardOneBody:
+        "Blocks are plain React views — Tailwind, CSS modules, any design system. No locked templates.",
+    cardTwoTitle: "Forms write themselves",
+    cardTwoBody:
+        "Describe fields once in a JSON scheme — authors get a full edit dialog with zero form boilerplate.",
 }
 
 const scheme: IScheme = {

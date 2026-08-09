@@ -6,6 +6,7 @@ import InstallBlock from "./install"
 import UsageBlock from "./usage"
 import CreateBlockBlock from "./create-block"
 import CodeWindowBlock from "./code-window"
+import NestedWidgetsBlock from "./nested-widgets"
 import EcosystemBlock from "./ecosystem"
 
 function instance(
@@ -25,8 +26,9 @@ export const DEFAULT_PAGE: IBlockResultValue[] = [
     instance(102, HighlightsBlock),
     instance(103, ModesBlock),
     instance(104, InstallBlock),
-    instance(105, UsageBlock),
-    instance(106, CreateBlockBlock),
-    instance(107, CodeWindowBlock),
-    instance(108, EcosystemBlock),
+    instance(105, CreateBlockBlock),
+    instance(106, UsageBlock),
+    instance(107, NestedWidgetsBlock),
+    instance(108, CodeWindowBlock),
+    instance(109, EcosystemBlock),
 ]
